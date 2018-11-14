@@ -4,7 +4,6 @@ import scipy.ndimage as im
 import scipy.misc as imw
 
 BLOCK_SIZE = 50
-SCREEN_RES = (3200, 1800)
 
 # 0 for hue
 # 1 for saturation
@@ -21,8 +20,7 @@ def get_block_list(img, height, width):
     return res
 
 
-def block_list_to_img(block_list, height, width):
-    sw, sh = SCREEN_RES
+def block_list_to_img(block_list, height, width, sh, sw):
     img = np.empty((sh, sw, 3))
     for x in range(width):
         for y in range(height):
@@ -43,7 +41,7 @@ def main():
     height = h // BLOCK_SIZE
     block_list = get_block_list(img, height, width)
     block_list.sort(key=magnitude)
-    new_img = block_list_to_img(block_list, height, width)
+    new_img = block_list_to_img(block_list, height, width, h, w)
     imw.imsave("/tmp/screen.png", new_img)
 
 
