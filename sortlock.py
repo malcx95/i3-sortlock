@@ -3,7 +3,7 @@ import matplotlib.colors as colors
 import imageio
 import random
 
-BLOCK_SIZE = 10
+BLOCK_SIZE = 8
 
 # 0 for hue
 # 1 for saturation
@@ -21,7 +21,7 @@ def get_block_list(img, height, width):
 
 
 def block_list_to_img(block_list, height, width, sh, sw):
-    img = np.empty((sh, sw, 3))
+    img = np.empty((sh, sw, 3), dtype=np.uint8)
     for x in range(width):
         for y in range(height):
             block = block_list[y*width + x][1]
@@ -35,7 +35,7 @@ def magnitude(block):
 
 
 def main():
-    img = np.array(imageio.imread("/tmp/screen.png"))
+    img = np.array(imageio.imread_v2("/tmp/screen.png"))
     h, w, _ = img.shape
     width = w // BLOCK_SIZE
     height = h // BLOCK_SIZE
